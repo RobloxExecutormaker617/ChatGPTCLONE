@@ -3,151 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatGPT Premium</title>
+    <title>NexiusAI Tool</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <style>
         /* Custom styles for chat bubbles and layout */
-        .message {
-            border-radius: 1.3rem;
-            margin-bottom: 0.75rem;
-            padding: 0.8rem 1.2rem;
-            max-width: 85%;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        .user-message {
-            background-color: #e0f2fe;
-            color: #1f2937;
-            margin-left: auto;
-            border-top-right-radius: 0.5rem;
-            border-bottom-right-radius: 0.5rem;
-        }
-        .system-message {
-            background-color: #f3f4f6;
-            color: #1f2937;
-            margin-right: auto;
-            border-top-left-radius: 0.5rem;
-            border-bottom-left-radius: 0.5rem;
-        }
-        .input-area {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem;
-            border-top: 1px solid #e5e7eb;
-            background-color: #f9fafb;
-        }
-        .input-field {
-            flex: 1;
-            border: 1px solid #d1d5db;
-            border-radius: 1.3rem;
-            padding: 0.8rem;
-            margin-right: 0.75rem;
-            font-size: 1rem;
-            outline: none;
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-        .input-field:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-        }
-        .send-button {
-            padding: 0.8rem 1.6rem;
-            background-color: #3b82f6;
-            color: white;
-            border-radius: 1.3rem;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .send-button:hover {
-            background-color: #2563eb;
-            transform: translateY(-1px);
-            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
-        }
-        .send-button:active {
-            background-color: #1e40af;
-            transform: translateY(0);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        .chat-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1rem;
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            scroll-behavior: smooth;
-        }
-        .header {
-            background-color: #f0f0f0;
-            padding: 1.2rem;
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #333;
-            border-bottom: 1px solid #e0e0e0;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
-        .loading-indicator {
-            align-self: center;
-            margin-top: 1rem;
-            font-size: 1.2rem;
-            color: #777;
-        }
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top-color: #3b82f6;
-            width: 1.5rem;
-            height: 1.5rem;
-            animation: spin 1s linear infinite;
-            margin: 0.5rem;
-            display: inline-block;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            height: 100vh;
+            overflow: hidden;
         }
 
-        /* Sidebar Styles */
+        .header {
+            background-image: linear-gradient(to right, #6b7280, #374151);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            border-bottom: 1px solid #4a5568;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            letter-spacing: 0.05em;
+            transition: background-image 0.3s ease;
+            overflow: hidden;
+        }
+
+        .header:hover {
+            background-image: linear-gradient(to right, #4b5563, #1f2937);
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
         .sidebar {
-            width: 250px;
-            background-color: #f7fafc;
-            border-right: 1px solid #e2e8f0;
+            width: 280px;
+            background-color: #1a202c;
+            border-right: 1px solid #4a5568;
             padding: 1rem;
             display: flex;
             flex-direction: column;
             height: 100%;
+            position: relative;
+            transition: width 0.3s ease, background-color 0.3s ease;
+            overflow: auto;
         }
+
+        .sidebar:hover {
+            width: 300px;
+            background-color: #2d3748;
+        }
+
         .sidebar-header {
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 1.5rem;
-            color: #4a5568;
+            color: #ffffff;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
         }
+
+        .sidebar-header:hover {
+            color: #f56565;
+        }
+
         .new-chat-button {
-            background-color: #3b82f6;
-            color: white;
-            padding: 0.75rem 1rem;
-            border-radius: 0.75rem;
+            background-color: #f56565;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
             border: none;
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.1s ease;
             margin-bottom: 1rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
         .new-chat-button:hover {
-            background-color: #2563eb;
+            background-color: #c53030;
             transform: translateY(-1px);
-            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
         }
+
         .new-chat-button:active {
-            background-color: #1e40af;
+            background-color: #e53e3e;
             transform: translateY(0);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .chat-list {
@@ -156,170 +107,665 @@
             margin: 0;
             overflow-y: auto;
             flex: 1;
-        }
-        .chat-list-item {
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            background-color: #edf2f7;
-            color: #4a5568;
-            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
-            font-size: 0.9rem;
-            border: 1px solid transparent;
-        }
-        .chat-list-item:hover {
-            background-color: #e2e8f0;
-            color: #2d3748;
-            transform: translateX(2px);
-            border-color: #e2e8f0;
-        }
-        .chat-list-item.active {
-            background-color: #3b82f6;
-            color: white;
-            font-weight: 600;
-            border-color: #3b82f6;
-        }
-        .no-chats-message {
-            color: #718096;
-            font-size: 0.875rem;
-            text-align: center;
-            margin-top: 1rem;
+            padding-top: 0.5rem;
+            transition: opacity 0.3s ease;
         }
 
-        /* Particle Styles */
-        #particles-container {
+        .chat-list:empty {
+            opacity: 0.7;
+        }
+
+        .chat-list-item {
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            background-color: #2d3748;
+            color: #ffffff;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease;
+            font-size: 1rem;
+            border: none;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-list-item:hover {
+            background-color: #4a5568;
+            color: #ffffff;
+            transform: translateX(2px);
+        }
+
+        .chat-list-item.active {
+            background-color: #f56565;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .no-chats-message {
+            color: #a0aec0;
+            font-size: 1rem;
+            text-align: center;
+            margin-top: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            scroll-behavior: smooth;
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+
+        .message {
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem 1rem;
+            max-width: 85%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: none;
+            background-color: #edf2f7;
+            color: #2d3748;
+            position: relative;
+            overflow-wrap: break-word;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            opacity: 0;
+            animation: fadeIn 0.2s ease-in-out forwards;
+        }
+
+        .message:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-message {
+            background-color: #68d391;
+            color: #1a202c;
+            margin-left: auto;
+            border-top-right-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            animation: fadeIn 0.2s ease-in-out forwards, slideInRight 0.1s ease-out forwards;
+        }
+
+        .system-message {
+            background-color: #4a5568;
+            color: #ffffff;
+            margin-right: auto;
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+            animation: fadeIn 0.2s ease-in-out forwards, slideInLeft 0.1s ease-out forwards;
+        }
+
+        .nexiusai-message {
+            background-color: #f56565;
+            color: #ffffff;
+            margin-right: auto;
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+            animation: fadeIn 0.2s ease-in-out forwards, slideInLeft 0.1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-10px); }
+            to { transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(10px); }
+            to { transform: translateX(0); }
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border-top: 1px solid #4a5568;
+            background-color: #1a202c;
+            border-radius: 0.375rem;
+            margin-top: auto;
+            overflow: hidden;
+        }
+
+        .input-field {
+            flex: 1;
+            border: 2px solid #718096;
+            border-radius: 0.375rem;
+            padding: 0.75rem;
+            margin-right: 0.75rem;
+            font-size: 1rem;
+            outline: none;
+            color: #ffffff;
+            background-color: #2d3748;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-field:focus {
+            border-color: #f56565;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            background-color: #1a202c;
+        }
+
+        .send-button {
+            padding: 0.75rem 1.5rem;
+            background-color: #f56565;
+            color: #ffffff;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-button:hover {
+            background-color: #c53030;
+            transform: translateY(-1px);
+        }
+
+        .send-button:active {
+            background-color: #e53e3e;
+            transform: translateY(0);
+        }
+
+        #particles-js {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Allows clicks to go through */
+            pointer-events: none;
             z-index: -1;
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
         }
-        .particle {
+
+        #particles-js.hidden {
+            opacity: 0;
+        }
+
+        .game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            overflow: auto;
+        }
+
+        #gameCanvas {
+            background-color: #000;
+            border: 2px solid #f56565;
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #FFFFFF;
+            padding: 1.5rem;
+            border-radius: 0.375rem;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            border: 1px solid #f56565;
+            opacity: 0;
+            animation: fadeInPopup 0.3s ease-in-out forwards;
+        }
+
+        @keyframes fadeInPopup {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .popup h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #f56565;
+        }
+
+        .popup p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .popup button {
+            padding: 0.75rem 1.5rem;
+            background-color: #f56565;
+            color: #ffffff;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        .popup button:hover {
+            background-color: #c53030;
+            transform: translateY(-1px);
+        }
+
+        .popup button:active {
+            background-color: #e53e3e;
+            transform: translateY(0);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            opacity: 0;
+            animation: fadeInModal 0.3s ease-in-out forwards;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.show {
+            display: block;
+        }
+
+        .modal-content {
+            background-color: #1a202c;
+            margin: 10% auto;
+            padding: 1.5rem;
+            border-radius: 0.375rem;
+            border: 1px solid #f56565;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s ease;
+            transform: translateY(-20px);
+            overflow: auto;
+            max-height: 80vh;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #4a5568;
+            overflow: hidden;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: #ffffff;
+        }
+
+        .close-button {
             position: absolute;
-            border-radius: 50%;
-            background-color: rgba(46, 204, 113, 0.6); /* Green with opacity */
-            animation: move 8s infinite linear; /* Long animation for subtle movement */
+            top: 0.5rem;
+            right: 0.5rem;
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            opacity: 0.7;
+            transition: opacity 0.2s ease, transform 0.2s ease;
         }
-        @keyframes move {
-            from {
-                transform: translate(0, 0);
-            }
-            to {
-                transform: translate(100vw, 100vh); /* Move across the screen */
-            }
+
+        .close-button:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .modal-body {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #a0aec0;
+            line-height: 1.5;
+        }
+
+        .modal-body ul {
+            list-style: disc;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-body li {
+            margin-bottom: 0.25rem;
+        }
+
+        .modal-footer {
+            text-align: right;
+            overflow: hidden;
+        }
+
+        .modal-footer button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            background-color: #f56565;
+            color: #ffffff;
+        }
+
+        .modal-footer button:hover {
+            background-color: #c53030;
+            transform: translateY(-1px);
+        }
+
+        .modal-footer button:active {
+            background-color: #e53e3e;
+            transform: translateY(0);
+        }
+
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -2;
+            opacity: 0.5;
+            transition: opacity 0.5s ease;
+        }
+
+        .video-background.hidden {
+            opacity: 0;
+        }
+
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .loading-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 1.5rem;
+            border-radius: 0.375rem;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #FFFFFF;
+            font-size: 1rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 0.3s ease-in-out forwards, pulse 1s infinite alternate;
+            display: none;
+        }
+
+        .loading-indicator.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        @keyframes pulse {
+            from { transform: translate(-50%, -50%) scale(1); }
+            to { transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        .typing-animation {
+            display: inline-flex;
+            animation: typing 2s steps(12, end) infinite;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #FFFFFF;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 12em; }
+        }
+
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1a202c;
+            color: #f7fafc;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            animation: fadeIn 0.3s ease-in-out forwards;
+            border-top: 1px solid #4a5568;
+        }
+
+        .cookie-banner.hidden {
+            display: none;
+        }
+
+        .cookie-text {
+            font-size: 0.9rem;
+            margin-right: 1rem;
+        }
+
+        .cookie-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            background-color: #f56565;
+            color: #ffffff;
+        }
+
+        .cookie-button:hover {
+            background-color: #c53030;
+            transform: translateY(-1px);
+        }
+
+        .cookie-button:active {
+            background-color: #e53e3e;
+            transform: translateY(0);
+        }
+
+        /* Matrix Rain Styles */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans">
-    <div id="particles-container"></div>
-    <div class="flex h-screen">
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <div class="video-background">
+        <video autoplay loop muted playsinline>
+            <source src="https://www.youtube.com/watch?v=WxYuaJbbEgk" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <header class="header">
+        NexiusAI
+    </header>
+    <div class="container">
         <aside class="sidebar">
             <h2 class="sidebar-header">Chats</h2>
-            <button id="new-chat-button" class="new-chat-button">New Chat</button>
-            <ul id="chat-list" class="chat-list">
-            </ul>
-            <p id="no-chats-message" class="no-chats-message" style="display: none;">No chats yet.</p>
+            <button class="new-chat-button" id="new-chat-button">New Chat</button>
+            <ul class="chat-list" id="chat-list">
+                </ul>
+            <p id="no-chats-message" class="no-chats-message">No chats yet.</p>
         </aside>
-        <main class="flex-1 flex flex-col">
-            <header class="header">
-                ChatGPT Premium
-            </header>
-            <div id="chat-container" class="chat-container">
+        <main class="chat-container" id="chat-container">
+            <button id="close-chat-button" class="close-chat-button" title="Close Chat">
+                <span>×</span>
+            </button>
+            <div id="welcome-message" class="message nexiusai-message">
+                <p>Hi, I'm NexiusAI, your intelligent assistant. How can I help you today?</p>
             </div>
-            <div class="input-area">
-                <input type="text" id="input-field" placeholder="Type your message..." class="input-field">
-                <button id="send-button" class="send-button">Send</button>
-            </div>
-            <div id="loading-indicator" class="loading-indicator" style="display: none;">
-                <span class="spinner"></span> Loading...
-            </div>
-        </main>
+            </main>
     </div>
+    <footer class="input-area">
+        <input type="text" id="message-input" class="input-field" placeholder="Type your message...">
+        <button id="send-button" class="send-button">Send</button>
+    </footer>
+    <div id="game-popup" class="popup">
+        <h2>Play a Game!</h2>
+        <p>Click the button below to start a simple game.</p>
+        <button id="play-game-button">Play Game</button>
+        <div class="game-container" style="display: none;">
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+        </div>
+    </div>
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <div class="modal-header">
+                <h2>About NexiusAI</h2>
+            </div>
+            <div class="modal-body">
+                <p>NexiusAI is a versatile chatbot designed to assist you with a variety of tasks. It is developed using advanced AI technologies to provide intelligent and helpful responses.</p>
+                <h3>Features:</h3>
+                <ul>
+                    <li>Interactive Chat: Engage in natural language conversations.</li>
+                    <li>Dynamic Responses: Receives real-time, context-aware answers.</li>
+                    <li>Customizable Interface: Enjoy a visually appealing and user-friendly design.</li>
+                    <li>Game Integration: Play a fun game directly within the interface.</li>
+                    <li>Background Music: Enjoy ambient background music while you chat.</li>
+                    <li>Matrix Rain Effect: Immersive visual background.</li>
+                    <li>Enhanced UI: Improved colors, shadows, and animations.</li>
+                </ul>
+                <h3>How to Use:</h3>
+                <ol>
+                    <li>Type your message in the input field at the bottom.</li>
+                    <li>Click the "Send" button or press Enter to send your message.</li>
+                    <li>View the responses from NexiusAI in the chat container.</li>
+                    <li>Click "New Chat" to start a new conversation.</li>
+                    <li>Click "Play Game" in the popup to play a simple game.</li>
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-got-it">Got it!</button>
+            </div>
+        </div>
+    </div>
+    <div class="loading-indicator" id="loading-indicator">
+        <span class="typing-animation">Loading...</span>
+    </div>
+    <div class="cookie-banner" id="cookie-banner">
+        <span class="cookie-text">This website uses cookies to ensure you get the best experience.</span>
+        <button class="cookie-button" id="accept-cookies">Got it!</button>
+    </div>
+    <audio id="background-music-1" loop preload="auto" style="display: none;">
+        <source src="https://www.youtube.com/watch?v=vsnWWWa6vio&t=64s" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="background-music-2" loop preload="auto" style="display: none;">
+        <source src="https://www.youtube.com/watch?v=WxYuaJbbEgk" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     <script>
-        const chatContainer = document.getElementById('chat-container');
-        const inputField = document.getElementById('input-field');
-        const sendButton = document.getElementById('send-button');
-        const loadingIndicator = document.getElementById('loading-indicator');
+        // Get references to DOM elements
         const chatList = document.getElementById('chat-list');
+        const chatContainer = document.getElementById('chat-container');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
         const newChatButton = document.getElementById('new-chat-button');
         const noChatsMessage = document.getElementById('no-chats-message');
-        const particlesContainer = document.getElementById('particles-container');
+        const gamePopup = document.getElementById('game-popup');
+        const playGameButton = document.getElementById('play-game-button');
+        const gameCanvas = document.getElementById('gameCanvas');
+        const ctx = gameCanvas.getContext('2d');
+        const closeChatButton = document.getElementById('close-chat-button');
+        const welcomeMessage = document.getElementById('welcome-message');
+        const infoModal = document.getElementById('info-modal');
+        const infoModalClose = document.querySelector('#info-modal .close-button');
+        const infoModalFooterButton = document.getElementById('modal-got-it');
+        const body = document.querySelector('body');
+        const videoBackground = document.querySelector('.video-background');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookiesButton = document.getElementById('accept-cookies');
+        const music1 = document.getElementById('background-music-1');
+        const music2 = document.getElementById('background-music-2');
+        const matrixCanvas = document.getElementById('matrix-canvas');
+        const matrixCtx = matrixCanvas.getContext('2d');
 
 
         let chats = [];
         let currentChatId = null;
+        let messageHistory = {};
+        let isGameActive = false;
+        let gameInterval;
+        let messageQueue = [];
+        let isProcessingMessage = false;
+        let currentMusic = null;
+        let aiResponseTimeout;
+        let userActivityTimeout;
+        let isUserActive = true;
+        //const apiKey = 'YOUR_API_KEY'; // <=====  PUT YOUR API KEY HERE
+        //const apiUrl = 'YOUR_API_ENDPOINT'; // <=====  PUT YOUR API ENDPOINT HERE
 
-        // Function to add a message to the chat
-        function addMessage(chatId, sender, message) {
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message');
-            messageElement.classList.add(sender === 'user' ? 'user-message' : 'system-message');
-            messageElement.textContent = message;
 
-            // Find the chat in the array
-            const chat = chats.find(c => c.id === chatId);
-            if (chat) {
-                chat.messages.push({ sender, message });
-            }
+        // --- Matrix Rain Variables ---
+        let matrixColumns = [];
+        let fontSize = 16;
+        let matrixRainSpeed = 20;
+        let symbols = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let symbolColor = 'rgba(0, 255, 0, 0.8)';
 
-            if (currentChatId === chatId) {
-                chatContainer.appendChild(messageElement);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            }
-            saveChats();
+
+        // --- Utility Functions ---
+
+        /**
+         * Creates a unique ID for each chat.
+         * @returns {string} A unique ID.
+         */
+        function generateChatId() {
+            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         }
 
-        // Function to simulate a response from the system
-        function getSystemResponse(userMessage) {
-            return new Promise(resolve => {
-                const simulatedResponseDelay = 1000 + Math.random() * 1000;
-                setTimeout(() => {
-                    const responses = [
-                        "This is a simulated response to: " + userMessage,
-                        "I understand. Here's a dummy reply.",
-                        "Okay, I'm pretending to process your request.",
-                        "Just a test response from the system.",
-                        "Echoing your message back: " + userMessage,
-                        "Here is another simulated response.",
-                        "I am a placeholder for a real AI.",
-                        "This is a canned response.",
-                        "Simulating a thoughtful reply...",
-                        "Got it.  Here's a simulation."
-                    ];
-                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                    resolve(randomResponse);
-                }, simulatedResponseDelay);
-            });
-        }
-
-        // Function to handle sending a message
-        async function handleSendMessage() {
-            const userMessage = inputField.value.trim();
-            if (userMessage === '') return;
-
-            addMessage(currentChatId, 'user', userMessage);
-            inputField.value = '';
-            inputField.disabled = true;
-            sendButton.disabled = true;
-            loadingIndicator.style.display = 'flex';
-
-            try {
-                const systemResponse = await getSystemResponse(userMessage);
-                addMessage(currentChatId, 'system', systemResponse);
-            } catch (error) {
-                console.error("Failed to get response:", error);
-                addMessage(currentChatId, 'system', "Sorry, there was an error processing your request.");
-            } finally {
-                inputField.disabled = false;
-                sendButton.disabled = false;
-                loadingIndicator.style.display = 'none';
-            }
-        }
-
-        // Function to render the chat list in the sidebar
+        /**
+         * Renders the chat list in the sidebar.
+         */
         function renderChatList() {
             chatList.innerHTML = '';
             if (chats.length === 0) {
@@ -329,100 +775,403 @@
                 chats.forEach(chat => {
                     const chatListItem = document.createElement('li');
                     chatListItem.classList.add('chat-list-item');
-                    chatListItem.textContent = `Chat ${chat.id}`;
+                    chatListItem.textContent = chat.title;
                     chatListItem.dataset.chatId = chat.id;
+                    if (chat.id === currentChatId) {
+                        chatListItem.classList.add('active');
+                    }
                     chatListItem.addEventListener('click', () => {
-                        loadChat(chat.id);
+                        switchChat(chat.id);
                     });
                     chatList.appendChild(chatListItem);
                 });
             }
         }
 
-        // Function to load a selected chat
-        function loadChat(chatId) {
+        /**
+         * Adds a message to the chat container and updates message history.
+         * @param {string} chatId - The ID of the chat.
+         * @param {string} sender - The sender of the message ('user' or 'nexiusai').
+         * @param {string} text - The text of the message.
+         */
+        function addMessageToChat(chatId, sender, text) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(sender === 'user' ? 'user-message' : 'nexiusai-message');
+            messageElement.textContent = text;
+            chatContainer.appendChild(messageElement);
+
+            // Store the message in history
+            if (!messageHistory[chatId]) {
+                messageHistory[chatId] = [];
+            }
+            messageHistory[chatId].push({ sender, text });
+            // Scroll to the bottom of the chat
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        /**
+         * Switches the current chat to the selected chat.
+         * @param {string} chatId - The ID of the chat to switch to.
+         */
+        function switchChat(chatId) {
             currentChatId = chatId;
+            renderChatList();
             chatContainer.innerHTML = '';
-            const chat = chats.find(c => c.id === chatId);
-            if (chat) {
-                chat.messages.forEach(message => {
-                    const messageElement = document.createElement('div');
-                    messageElement.classList.add('message');
-                    messageElement.classList.add(message.sender === 'user' ? 'user-message' : 'system-message');
-                    messageElement.textContent = message.message;
-                    chatContainer.appendChild(messageElement);
+            if (messageHistory[chatId]) {
+                messageHistory[chatId].forEach(message => {
+                    addMessageToChat(chatId, message.sender, message.text);
                 });
-                const chatListItems = document.querySelectorAll('.chat-list-item');
-                chatListItems.forEach(item => {
-                    item.classList.remove('active');
-                    if (item.dataset.chatId === chatId) {
-                        item.classList.add('active')
-                    }
-                })
-                chatContainer.scrollTop = chatContainer.scrollHeight;
+            } else {
+                chatContainer.appendChild(welcomeMessage);
             }
         }
 
-        // Function to create a new chat
+        /**
+         * Creates a new chat and switches to it.
+         */
         function createNewChat() {
-            const newChatId = chats.length > 0 ? Math.max(...chats.map(c => c.id)) + 1 : 1;
-            chats.push({ id: newChatId, messages: [] });
-            saveChats();
+            const newChatId = generateChatId();
+            chats.push({ id: newChatId, title: `Chat ${chats.length + 1}` });
+            currentChatId = newChatId;
             renderChatList();
-            loadChat(newChatId);
+            chatContainer.innerHTML = '';
+            messageHistory[newChatId] = [];
+            chatContainer.appendChild(welcomeMessage);
         }
 
-        // Function to create particles
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            particle.style.left = `${Math.random() * 100}vw`;
-            particle.style.top = `${Math.random() * 100}vh`;
-            const size = Math.random() * 8 + 2;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.animationDuration = `${Math.random() * 6 + 8}s`; // Adjust for varied speed
-            particlesContainer.appendChild(particle);
+        /**
+         * Processes the message queue.
+         */
+        function processMessageQueue() {
+            if (messageQueue.length === 0 || isProcessingMessage) return;
 
-            // Remove the particle after the animation finishes
-            particle.addEventListener('animationend', () => {
-                particle.remove();
+            isProcessingMessage = true;
+            const { chatId, sender, text, type, messageId } = messageQueue.shift(); // Include messageId
+
+            if (type === 'typing') {
+                const typingMessage = document.createElement('div');
+                typingMessage.classList.add('message', 'nexiusai-message');
+                typingMessage.innerHTML = `<span class="typing-animation">${text}</span>`;
+                typingMessage.dataset.messageId = messageId; // Store messageId
+                chatContainer.appendChild(typingMessage);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                setTimeout(() => {
+                    const displayedMessage = document.querySelector(`[data-message-id="${messageId}"] .typing-animation`);
+                    if (displayedMessage) {
+                        displayedMessage.parentElement.textContent = text;
+                    }
+                    isProcessingMessage = false;
+                    processMessageQueue();
+                }, 2000);
+            } else {
+                addMessageToChat(chatId, sender, text);
+                isProcessingMessage = false;
+                processMessageQueue();
+            }
+        }
+
+        /**
+         * Adds a message to the queue.
+         * @param {string} chatId - The ID of the chat.
+         * @param {string} sender - The sender of the message.
+         * @param {string} text - The text of the message.
+         * @param {string} type - The type of message ('text' or 'typing').
+         * @param {string} messageId - Unique ID for the message.
+         */
+        function queueMessage(chatId, sender, text, type = 'text', messageId = generateChatId()) {
+            messageQueue.push({ chatId, sender, text, type, messageId });
+            processMessageQueue();
+        }
+
+        // --- Event Handlers ---
+
+        /**
+         * Handles sending a message.
+         */
+        function handleSendMessage() {
+            const messageText = messageInput.value.trim();
+            if (messageText === '') return;
+
+            const userMessageId = generateChatId();
+            queueMessage(currentChatId, 'user', messageText, 'text', userMessageId);
+            messageInput.value = '';
+            loadingIndicator.classList.add('show');
+
+            //  ===  IMPORTANT:  This is where you'd send the message to your server/AI  ===
+            //
+            //  Replace the placeholder code below with your actual API call.
+            //  Make sure to include your API key in the headers.
+            //
+            fetch(`https://gemini.google.com/app/e67d4ef62628d68d`, {  //  <=====  Replace with your API endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `AIzaSyCh5OL7S3YWsS_OWn9xuBKmwd077wYBjHM`, //  <=====  Include your API key here
+                },
+                body: JSON.stringify({ message: messageText }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                loadingIndicator.classList.remove('show');
+                const aiResponse = data.response || "Sorry, I couldn't process that.";  //  <=====  Adjust to the actual response structure
+                queueMessage(currentChatId, 'nexiusai', aiResponse, 'text', userMessageId); // Use the userMessageId
+            })
+            .catch(error => {
+                loadingIndicator.classList.remove('show');
+                queueMessage(currentChatId, 'nexiusai', 'Sorry, there was an error communicating with the AI.', 'text', userMessageId); // Use the userMessageId
+                console.error('Error sending message to AI:', error);
             });
         }
 
-        // Event listeners
-        sendButton.addEventListener('click', handleSendMessage);
-        inputField.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                handleSendMessage();
-            }
-        });
-        newChatButton.addEventListener('click', createNewChat);
-
-        // Load chats from local storage
-        function loadChats() {
-            const savedChats = localStorage.getItem('chats');
-            if (savedChats) {
-                chats = JSON.parse(savedChats);
-            }
-        }
-
-        // Save chats to local storage
-        function saveChats() {
-            localStorage.setItem('chats', JSON.stringify(chats));
-        }
-
-        // Initialize the app
-        loadChats();
-        if (chats.length === 0) {
+        /**
+         * Handles the creation of a new chat.
+         */
+        function handleNewChat() {
             createNewChat();
-        } else {
-            renderChatList();
-            loadChat(chats[0].id);
         }
 
-        // Create particles
-        setInterval(createParticle, 200); // Adjust for particle density
+        // --- Game Functions (Simplified) ---
+        let playerX = 50;
+        let playerY = 50;
+        let enemyX = 550;
+        let enemyY = 350;
+        let gameScore = 0;
+        let gameOver = false;
+        let gameInterval;
+        let keys = {};
+
+        function drawPlayer() {
+            ctx.fillStyle = '#00FF00';
+            ctx.fillRect(playerX, playerY, 20, 20);
+        }
+
+        function drawEnemy() {
+            ctx.fillStyle = '#FF0000';
+            ctx.fillRect(enemyX, enemyY, 20, 20);
+        }
+
+        function drawScore() {
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = '20px Arial';
+            ctx.fillText(`Score: ${gameScore}`, 20, 30);
+        }
+
+        function updateGame() {
+            if (gameOver) return;
+
+            // Player movement
+            if (keys['ArrowUp']) playerY -= 5;
+            if (keys['ArrowDown']) playerY += 5;
+            if (keys['ArrowLeft']) playerX -= 5;
+            if (keys['ArrowRight']) playerX += 5;
+
+            // Keep player within bounds
+            playerX = Math.max(0, Math.min(playerX, gameCanvas.width - 20));
+            playerY = Math.max(0, Math.min(playerY, gameCanvas.height - 20));
+
+            // Enemy movement (basic chasing)
+            if (enemyX < playerX) enemyX += 2;
+            if (enemyX > playerX) enemyX -= 2;
+            if (enemyY < playerY) enemyY += 2;
+            if (enemyY > playerY) enemyY -= 2;
+
+            // Collision detection
+            if (Math.abs(playerX - enemyX) < 20 && Math.abs(playerY - enemyY) < 20) {
+                gameOver = true;
+                alert(`Game Over! Your score: ${gameScore}`);
+                gameScore = 0;
+                resetGame();
+            }
+
+            // Increase score over time
+            gameScore += 1;
+
+            ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+            drawPlayer();
+            drawEnemy();
+            drawScore();
+            gameAnimationFrame = requestAnimationFrame(updateGame);
+        }
+
+        function resetGame() {
+            gameOver = false;
+            playerX = 50;
+            playerY = 50;
+            enemyX = 550;
+            enemyY = 350;
+            gameScore = 0;
+            keys = {};
+            cancelAnimationFrame(gameAnimationFrame);
+            ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+            gameAnimationFrame = requestAnimationFrame(updateGame);
+        }
+
+        function handleKeyDown(e) {
+            keys[e.key] = true;
+        }
+
+        function handleKeyUp(e) {
+            keys[e.key] = false;
+        }
+
+        function startGame() {
+            if (!isGameActive) {
+                gamePopup.querySelector('.game-container').style.display = 'flex';
+                isGameActive = true;
+                gamePopup.style.display = 'none';
+                document.addEventListener('keydown', handleKeyDown);
+                document.addEventListener('keyup', handleKeyUp);
+                gameAnimationFrame = requestAnimationFrame(updateGame);
+            }
+        }
+
+        // --- UI Enhancement Functions ---
+
+        /**
+         * Initializes and draws the matrix rain effect on the canvas.
+         */
+        function initMatrixRain() {
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+            const cols = Math.floor(matrixCanvas.width / fontSize);
+            matrixColumns = [];
+            for (let i = 0; i < cols; i++) {
+                matrixColumns[i] = Math.floor(Math.random() * matrixCanvas.height);
+            }
+            drawMatrixRain();
+        }
+
+        /**
+         * Draws the matrix rain effect on the canvas.
+         */
+        function drawMatrixRain() {
+            matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            matrixCtx.fillStyle = symbolColor;
+            matrixCtx.font = `${fontSize}px monospace`;
+            for (let i = 0; i < matrixColumns.length; i++) {
+                const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+                matrixCtx.fillText(symbol, i * fontSize, matrixColumns[i] * fontSize);
+                if (matrixColumns[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                    matrixColumns[i] = 0;
+                }
+                matrixColumns[i]++;
+            }
+            requestAnimationFrame(drawMatrixRain);
+        }
+
+        /**
+         * Plays background music.
+         */
+        function playBackgroundMusic() {
+            if (currentMusic) return;
+
+            const musicToPlay = Math.random() > 0.5 ? music1 : music2;
+            musicToPlay.volume = 0.3;
+            musicToPlay.play().then(() => {
+                currentMusic = musicToPlay;
+            }).catch(error => {
+                console.error("Playback was prevented:", error);
+            });
+        }
+
+        /**
+         * Stops background music
+         */
+        function stopBackgroundMusic() {
+            if (currentMusic) {
+                currentMusic.pause();
+                currentMusic = null;
+            }
+        }
+
+        /**
+         * Resets user activity timer.
+         */
+        function resetUserActivityTimer() {
+            isUserActive = true;
+            clearTimeout(userActivityTimeout);
+            userActivityTimeout = setTimeout(handleInactiveUser, 60000);
+            if (currentMusic) {
+                currentMusic.play();
+            }
+        }
+
+        /**
+         * Handles inactive user.
+         */
+        function handleInactiveUser() {
+            isUserActive = false;
+            stopBackgroundMusic();
+        }
+
+        // --- Initialization ---
+
+        // Initialize chat and event listeners
+        chats.push({ id: generateChatId(), title: 'Chat 1' });
+        currentChatId = chats[0].id;
+        messageHistory[currentChatId] = [];
+        renderChatList();
+        chatContainer.appendChild(welcomeMessage);
+
+        newChatButton.addEventListener('click', handleNewChat);
+        sendButton.addEventListener('click', handleSendMessage);
+        closeChatButton.addEventListener('click', () => {
+            chatContainer.innerHTML = '';
+            if (currentChatId) {
+                messageHistory[currentChatId] = [];
+            }
+            chats = [];
+            currentChatId = null;
+            renderChatList();
+            chatContainer.appendChild(welcomeMessage);
+        });
+        playGameButton.addEventListener('click', startGame);
+        infoModalClose.addEventListener('click', () => {
+            infoModal.style.display = 'none';
+        });
+        infoModalFooterButton.addEventListener('click', () => {
+            infoModal.style.display = 'none';
+        });
+        window.addEventListener('load', () => {
+            loadingIndicator.classList.remove('show');
+            initMatrixRain();
+            playBackgroundMusic();
+        });
+
+        window.addEventListener('resize', () => {
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+            initMatrixRain();
+        });
+
+        document.addEventListener('mousemove', resetUserActivityTimer);
+        document.addEventListener('keydown', resetUserActivityTimer);
+        document.addEventListener('click', resetUserActivityTimer);
+
+        if (document.cookie.indexOf('acceptedCookies=true') === -1) {
+            cookieBanner.classList.remove('hidden');
+            acceptCookiesButton.addEventListener('click', () => {
+                document.cookie = 'acceptedCookies=true;max-age=31536000';
+                cookieBanner.classList.add('hidden');
+            });
+        } else {
+            cookieBanner.classList.add('hidden');
+        }
+
+        // --- Matrix Rain Initialization ---
+        initMatrixRain();
+
+        // --- Background Music ---
+        playBackgroundMusic();
+        resetUserActivityTimer();
+
     </script>
 </body>
 </html>
