@@ -113,36 +113,36 @@
 
         /* Sidebar Styles */
         .sidebar {
-            width: 250px; /* Increased width of sidebar */
-            background-color: #f7fafc; /* Lighter background color */
-            border-right: 1px solid #e2e8f0; /* Lighter border color */
+            width: 250px;
+            background-color: #f7fafc;
+            border-right: 1px solid #e2e8f0;
             padding: 1rem;
             display: flex;
             flex-direction: column;
-            height: 100%; /* Make sidebar full height */
+            height: 100%;
         }
         .sidebar-header {
-            font-size: 1.25rem; /* Slightly larger header font */
-            font-weight: 600; /* Semi-bold font weight */
-            margin-bottom: 1.5rem; /* Increased margin below header */
-            color: #4a5568; /* Darker text color */
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #4a5568;
         }
         .new-chat-button {
             background-color: #3b82f6;
             color: white;
             padding: 0.75rem 1rem;
-            border-radius: 0.75rem; /* More rounded button */
+            border-radius: 0.75rem;
             border: none;
             cursor: pointer;
-            font-size: 0.9rem; /* Slightly smaller font size */
-            transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease; /* Added box-shadow transition */
-            margin-bottom: 1rem; /* Add space below the button */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         .new-chat-button:hover {
             background-color: #2563eb;
             transform: translateY(-1px);
-            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15); /* Increased shadow on hover */
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
         }
         .new-chat-button:active {
             background-color: #1e40af;
@@ -154,47 +154,73 @@
             list-style: none;
             padding: 0;
             margin: 0;
-            overflow-y: auto; /* Add scrollbar for long lists */
-            flex: 1; /* Allow chat list to take up remaining space */
+            overflow-y: auto;
+            flex: 1;
         }
         .chat-list-item {
             padding: 0.75rem;
-            border-radius: 0.5rem; /* Slightly more rounded list items */
-            margin-bottom: 0.5rem; /* Space between list items */
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
             cursor: pointer;
-            background-color: #edf2f7; /* Very light background for list items */
-            color: #4a5568; /* Darker text color */
-            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease; /* Added transform transition */
-            font-size: 0.9rem; /* Slightly smaller font size */
-            border: 1px solid transparent; /* Add transparent border */
+            background-color: #edf2f7;
+            color: #4a5568;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
         }
         .chat-list-item:hover {
-            background-color: #e2e8f0; /* Slightly darker background on hover */
-            color: #2d3748; /* Even darker text on hover */
-            transform: translateX(2px); /* Slight horizontal movement on hover */
-            border-color: #e2e8f0; /* Show border on hover */
+            background-color: #e2e8f0;
+            color: #2d3748;
+            transform: translateX(2px);
+            border-color: #e2e8f0;
         }
         .chat-list-item.active {
             background-color: #3b82f6;
             color: white;
-            font-weight: 600; /* Bold font for active chat */
+            font-weight: 600;
             border-color: #3b82f6;
         }
         .no-chats-message {
-            color: #718096; /* Muted text color */
-            font-size: 0.875rem; /* Smaller font size */
+            color: #718096;
+            font-size: 0.875rem;
             text-align: center;
-            margin-top: 1rem; /* Add space above message */
+            margin-top: 1rem;
+        }
+
+        /* Particle Styles */
+        #particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicks to go through */
+            z-index: -1;
+        }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(46, 204, 113, 0.6); /* Green with opacity */
+            animation: move 8s infinite linear; /* Long animation for subtle movement */
+        }
+        @keyframes move {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(100vw, 100vh); /* Move across the screen */
+            }
         }
     </style>
 </head>
 <body class="bg-gray-100 font-sans">
+    <div id="particles-container"></div>
     <div class="flex h-screen">
         <aside class="sidebar">
             <h2 class="sidebar-header">Chats</h2>
             <button id="new-chat-button" class="new-chat-button">New Chat</button>
             <ul id="chat-list" class="chat-list">
-                </ul>
+            </ul>
             <p id="no-chats-message" class="no-chats-message" style="display: none;">No chats yet.</p>
         </aside>
         <main class="flex-1 flex flex-col">
@@ -202,7 +228,7 @@
                 ChatGPT Premium
             </header>
             <div id="chat-container" class="chat-container">
-                </div>
+            </div>
             <div class="input-area">
                 <input type="text" id="input-field" placeholder="Type your message..." class="input-field">
                 <button id="send-button" class="send-button">Send</button>
@@ -220,6 +246,8 @@
         const chatList = document.getElementById('chat-list');
         const newChatButton = document.getElementById('new-chat-button');
         const noChatsMessage = document.getElementById('no-chats-message');
+        const particlesContainer = document.getElementById('particles-container');
+
 
         let chats = [];
         let currentChatId = null;
@@ -234,10 +262,10 @@
             // Find the chat in the array
             const chat = chats.find(c => c.id === chatId);
             if (chat) {
-                chat.messages.push({ sender, message }); // Add message to the chat's message array.
+                chat.messages.push({ sender, message });
             }
 
-            if (currentChatId === chatId) { //check if its the current chat
+            if (currentChatId === chatId) {
                 chatContainer.appendChild(messageElement);
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
@@ -272,7 +300,7 @@
             const userMessage = inputField.value.trim();
             if (userMessage === '') return;
 
-            addMessage(currentChatId, 'user', userMessage); //use currentChatId
+            addMessage(currentChatId, 'user', userMessage);
             inputField.value = '';
             inputField.disabled = true;
             sendButton.disabled = true;
@@ -280,7 +308,7 @@
 
             try {
                 const systemResponse = await getSystemResponse(userMessage);
-                addMessage(currentChatId, 'system', systemResponse); //use currentChatId
+                addMessage(currentChatId, 'system', systemResponse);
             } catch (error) {
                 console.error("Failed to get response:", error);
                 addMessage(currentChatId, 'system', "Sorry, there was an error processing your request.");
@@ -293,7 +321,7 @@
 
         // Function to render the chat list in the sidebar
         function renderChatList() {
-            chatList.innerHTML = ''; // Clear the list
+            chatList.innerHTML = '';
             if (chats.length === 0) {
                 noChatsMessage.style.display = 'block';
             } else {
@@ -301,7 +329,7 @@
                 chats.forEach(chat => {
                     const chatListItem = document.createElement('li');
                     chatListItem.classList.add('chat-list-item');
-                    chatListItem.textContent = `Chat ${chat.id}`; // Display a simple title, or the first message
+                    chatListItem.textContent = `Chat ${chat.id}`;
                     chatListItem.dataset.chatId = chat.id;
                     chatListItem.addEventListener('click', () => {
                         loadChat(chat.id);
@@ -314,7 +342,7 @@
         // Function to load a selected chat
         function loadChat(chatId) {
             currentChatId = chatId;
-            chatContainer.innerHTML = ''; // Clear the chat container
+            chatContainer.innerHTML = '';
             const chat = chats.find(c => c.id === chatId);
             if (chat) {
                 chat.messages.forEach(message => {
@@ -324,11 +352,10 @@
                     messageElement.textContent = message.message;
                     chatContainer.appendChild(messageElement);
                 });
-                //set active class in sidebar
                 const chatListItems = document.querySelectorAll('.chat-list-item');
                 chatListItems.forEach(item => {
                     item.classList.remove('active');
-                    if(item.dataset.chatId === chatId){
+                    if (item.dataset.chatId === chatId) {
                         item.classList.add('active')
                     }
                 })
@@ -342,7 +369,25 @@
             chats.push({ id: newChatId, messages: [] });
             saveChats();
             renderChatList();
-            loadChat(newChatId); // Load the new chat
+            loadChat(newChatId);
+        }
+
+        // Function to create particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.top = `${Math.random() * 100}vh`;
+            const size = Math.random() * 8 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.animationDuration = `${Math.random() * 6 + 8}s`; // Adjust for varied speed
+            particlesContainer.appendChild(particle);
+
+            // Remove the particle after the animation finishes
+            particle.addEventListener('animationend', () => {
+                particle.remove();
+            });
         }
 
         // Event listeners
@@ -375,6 +420,9 @@
             renderChatList();
             loadChat(chats[0].id);
         }
+
+        // Create particles
+        setInterval(createParticle, 200); // Adjust for particle density
     </script>
 </body>
 </html>
